@@ -2,6 +2,7 @@
 
 {
   imports = [
-    ./services.nix
+    ./display-manager.nix
+    ./xserver.nix
   ];
 }
