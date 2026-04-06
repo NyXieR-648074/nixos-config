@@ -4,7 +4,7 @@
   nix = {
     nixPath = [
       "nixpkgs=${inputs.nixpkgs}"
-      "nixos-config=/home/${username}/nix-mangowc-dotfiles/config.nix"
+      "nixos-config=/home/${username}/nixos-config/config.nix"
     ];
     settings = {
       experimental-features = [
