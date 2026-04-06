@@ -2,14 +2,14 @@
 
 {
   imports = [
-    ./boot
     ./fonts
-    ./localization
-    ./networking
     ./nix
     ./packages
     ./services
-    ./users
+    ./boot.nix
+    ./localization.nix
+    ./networking.nix
+    ./user.nix
   ];
 }
 

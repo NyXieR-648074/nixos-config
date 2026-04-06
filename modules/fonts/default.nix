@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ./fonts.nix
+    ./core.nix
     ./fontconfig.nix
+    ./packages.nix
   ];
 }
