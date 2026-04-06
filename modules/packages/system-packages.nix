@@ -6,6 +6,7 @@
     alacritty
     rofi
     yazi
+    gimp
     librewolf
     tree
     waybar
