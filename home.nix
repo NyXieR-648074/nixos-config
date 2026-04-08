@@ -45,12 +45,21 @@
 '';
 
   dconf.settings = {
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-      };
-      "org/gnome/desktop/wm/preferences" = {
-        button-layout = ":";
-      };
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
     };
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = ":";
+    };
+  };
+  xdg.userDirs = {
+    enable = true;
+    documents   = "${config.home.homeDirectory}/Documents";
+    download    = "${config.home.homeDirectory}/Downloads";
+    music       = "${config.home.homeDirectory}/Music";
+    pictures    = "${config.home.homeDirectory}/Pictures";
+    videos      = "${config.home.homeDirectory}/Videos";
+    createDirectories = true;
+  };
   home.stateVersion = "25.11";
 }
