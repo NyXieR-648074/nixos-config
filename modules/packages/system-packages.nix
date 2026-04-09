@@ -6,6 +6,8 @@
     alacritty
     rofi
     yazi
+    zed
+    qbittorrent
     gimp
     librewolf
     tree
@@ -15,6 +17,7 @@
     btop
     swww
     figlet
+    lua-language-server
     toilet
     git
     nixd
