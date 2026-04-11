@@ -1,5 +1,9 @@
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 2
@@ -8,6 +12,7 @@ vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 vim.opt.signcolumn = "yes"
 vim.opt.laststatus = 3
+
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 vim.diagnostic.config({
@@ -18,26 +23,24 @@ vim.diagnostic.config({
   severity_sort = true,
 })
 
-vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = "Show line diagnostics" })
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Show LSP hover information" })
-vim.keymap.set("n", "<leader>e", function() Snacks.explorer() end, { desc = "Toggle Explorer" })
-vim.keymap.set("n", "<leader>ss", function() require("resession").save() end, { desc = "Save Session" })
-vim.keymap.set("n", "<leader>sl", function() require("resession").load() end, { desc = "Load Session" })
-vim.keymap.set("n", "<leader>sd", function() require("resession").delete() end, { desc = "Delete Session" })
-vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
+-- lsp
+map('n', 'gl', vim.diagnostic.open_float, { desc = "Show line diagnostics" })
+map('n', 'K', vim.lsp.buf.hover, { desc = "Show LSP hover information" })
 
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+-- sessions
+map("n", "<leader>e", function() Snacks.explorer() end, { desc = "Toggle Explorer" })
+map("n", "<leader>ss", function() require("resession").save() end, { desc = "Save Session" })
+map("n", "<leader>sl", function() require("resession").load() end, { desc = "Load Session" })
+map("n", "<leader>sd", function() require("resession").delete() end, { desc = "Delete Session" })
 
--- Move to previous/next
+-- exit terminal mode
+map('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
+
+-- barbara.nvim keymaps
 map('n', '<A-h>', '<Cmd>BufferPrevious<CR>', opts)
 map('n', '<A-l>', '<Cmd>BufferNext<CR>', opts)
-
--- Re-order to previous/next
 map('n', '<A-H>', '<Cmd>BufferMovePrevious<CR>', opts)
 map('n', '<A-L>', '<Cmd>BufferMoveNext<CR>', opts)
-
--- Goto buffer in position...
 map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
 map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
 map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
@@ -48,41 +51,18 @@ map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
 map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
 map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
 map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
-
--- Pin/unpin buffer
 map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
-
--- Goto pinned/unpinned buffer
---                 :BufferGotoPinned
---                 :BufferGotoUnpinned
-
--- Close buffer
 map('n', '<A-c>', '<Cmd>BufferClose<CR>', opts)
-
--- Wipeout buffer
---                 :BufferWipeout
-
--- Close commands
---                 :BufferCloseAllButCurrent
---                 :BufferCloseAllButPinned
---                 :BufferCloseAllButCurrentOrPinned
---                 :BufferCloseBuffersLeft
---                 :BufferCloseBuffersRight
-
--- Magic buffer-picking mode
 map('n', '<C-p>',   '<Cmd>BufferPick<CR>', opts)
 map('n', '<C-s-p>', '<Cmd>BufferPickDelete<CR>', opts)
-
--- Sort automatically by...
 map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
 map('n', '<Space>bn', '<Cmd>BufferOrderByName<CR>', opts)
 map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
 map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
 map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
 
--- Other:
--- :BarbarEnable - enables barbar (enabled by default)
--- :BarbarDisable - very bad command, should never be used
+
+-- lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
@@ -97,6 +77,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+
   -- Colorscheme
   {
     "rebelot/kanagawa.nvim",
@@ -117,11 +98,13 @@ require("lazy").setup({
     end,
   },
 
+  -- Sessions
   {
     'stevearc/resession.nvim',
     opts = {},
   },
 
+  -- Tabs
   {
     'romgrk/barbar.nvim',
     dependencies = {
@@ -130,33 +113,32 @@ require("lazy").setup({
     },
     init = function() vim.g.barbar_auto_setup = false end,
     opts = {
-      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-      -- animation = true,
-      -- insert_at_start = true,
-      -- …etc.
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
+
+  -- Statusline
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup({
         options = {
-          theme = 'auto', -- or 'auto', 'gruvbox', etc.
-          globalstatus = true, -- Highly recommended for a modern look
+          theme = 'auto',
+          globalstatus = true,
         }
       })
     end
   },
+
   -- LSP Configuration    
   {
     "neovim/nvim-lspconfig",
     config = function()
-      -- nixd (no config needed)
+      -- nix 
       vim.lsp.enable("nixd")
 
-      -- lua_ls (explicit config)
+      -- lua
       vim.lsp.config("lua_ls", {
         cmd = { "lua-language-server" },
         settings = {
@@ -171,12 +153,11 @@ require("lazy").setup({
           },
         },
       })
-
       vim.lsp.enable("lua_ls")
     end,
   },
 
-  -- Completion Engine
+  -- Completions
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
@@ -187,7 +168,7 @@ require("lazy").setup({
     config = function()
       local cmp = require('cmp')
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      
+
       -- Apply capabilities to all LSPs 
       vim.lsp.config('*', { capabilities = capabilities })
 
@@ -198,9 +179,9 @@ require("lazy").setup({
         mapping = cmp.mapping.preset.insert({
           ['<Tab>'] = cmp.mapping.select_next_item(),
           ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-          ['<CR>'] = cmp.mapping.confirm({ 
+          ['<CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            select = false 
+            select = false
           }),
           ['<C-Space>'] = cmp.mapping.complete(),
         }),
@@ -211,6 +192,8 @@ require("lazy").setup({
       })
     end,
   },
+
+  -- Snacks (explorer, file picker, homepage)
   {
     "folke/snacks.nvim",
     priority = 1000,
@@ -244,26 +227,26 @@ require("lazy").setup({
           },
         },
       },
-      picker = { 
+      picker = {
         enabled = true,
         sources = {
-          files = { 
-            replace_netrw = true, -- Replace netrw with the snacks explorer
+          files = {
+            replace_netrw = true,
             trash = true,
             hidden = true,
             ignored = true,
-          }, 
+          },
           explorer = {
-            replace_netrw = true, -- Replace netrw with the snacks explorer
+            replace_netrw = true,
             trash = true,
             hidden = true,
             ignored = true,
           }
         }
       },
-      explorer = { 
+      explorer = {
         enabled = true,
-        replace_netrw = true, -- Replace netrw with the snacks explorer
+        replace_netrw = true,
         trash = true,
         hidden = true,
         ignored = true,
