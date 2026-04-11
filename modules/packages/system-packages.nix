@@ -4,6 +4,7 @@
     mangowc
     fastfetch
     alacritty
+    zellij
     rofi
     yazi
     zed

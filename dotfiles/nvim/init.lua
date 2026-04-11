@@ -2,22 +2,21 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
 vim.opt.expandtab = true
 vim.opt.signcolumn = "yes"
 vim.opt.laststatus = 3
 vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 vim.diagnostic.config({
-    virtual_text = true,
-    signs = true,
-    underline = true,
-    update_in_insert = false,
-    severity_sort = true,
+  virtual_text = true,
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
 })
-
 
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float, { desc = "Show line diagnostics" })
 vim.keymap.set('n', 'K', vim.lsp.buf.hover, { desc = "Show LSP hover information" })
@@ -25,6 +24,7 @@ vim.keymap.set("n", "<leader>e", function() Snacks.explorer() end, { desc = "Tog
 vim.keymap.set("n", "<leader>ss", function() require("resession").save() end, { desc = "Save Session" })
 vim.keymap.set("n", "<leader>sl", function() require("resession").load() end, { desc = "Load Session" })
 vim.keymap.set("n", "<leader>sd", function() require("resession").delete() end, { desc = "Delete Session" })
+vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
@@ -97,135 +97,134 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-    -- Colorscheme
-    {
-        "rebelot/kanagawa.nvim",
-        priority = 1000,
-        config = function()
-            require('kanagawa').setup({
-            colors = {
-                theme = {
-                    all = {
-                        ui = {
-                            bg_gutter = "none"
-                        }
-                    }
-                }
-            },
-        })
-            vim.cmd.colorscheme("kanagawa")
-        end,
-    },
-
-{
-  'stevearc/resession.nvim',
-  opts = {},
-},
-
-    {
-        'romgrk/barbar.nvim',
-        dependencies = {
-            'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
-            'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+  -- Colorscheme
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    config = function()
+      require('kanagawa').setup({
+        colors = {
+          theme = {
+            all = {
+              ui = {
+                bg_gutter = "none"
+              }
+            }
+          }
         },
-        init = function() vim.g.barbar_auto_setup = false end,
-        opts = {
-            -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-            -- animation = true,
-            -- insert_at_start = true,
-            -- …etc.
-        },
-        version = '^1.0.0', -- optional: only update when a new 1.x version is released
+      })
+      vim.cmd.colorscheme("kanagawa")
+    end,
+  },
+
+  {
+    'stevearc/resession.nvim',
+    opts = {},
+  },
+
+  {
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
     },
-    {
-'nvim-lualine/lualine.nvim',
+    init = function() vim.g.barbar_auto_setup = false end,
+    opts = {
+      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+      -- animation = true,
+      -- insert_at_start = true,
+      -- …etc.
+    },
+    version = '^1.0.0', -- optional: only update when a new 1.x version is released
+  },
+  {
+    'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-        require('lualine').setup({
-            options = {
-                theme = 'auto', -- or 'auto', 'gruvbox', etc.
-                globalstatus = true, -- Highly recommended for a modern look
-            }
-        })
+      require('lualine').setup({
+        options = {
+          theme = 'auto', -- or 'auto', 'gruvbox', etc.
+          globalstatus = true, -- Highly recommended for a modern look
+        }
+      })
     end
-    },
-    -- LSP Configuration    
-    {
-        "neovim/nvim-lspconfig",
-        config = function()
-              -- nixd (no config needed)
-        vim.lsp.enable("nixd")
+  },
+  -- LSP Configuration    
+  {
+    "neovim/nvim-lspconfig",
+    config = function()
+      -- nixd (no config needed)
+      vim.lsp.enable("nixd")
 
-    -- lua_ls (explicit config)
-        vim.lsp.config("lua_ls", {
-            cmd = { "lua-language-server" },
-            settings = {
-            Lua = {
-                runtime = { version = "LuaJIT" },
-                diagnostics = { globals = { "vim" } },
-                workspace = {
-                    library = { vim.env.VIMRUNTIME },
-                    checkThirdParty = false,
-                },
-                telemetry = { enable = false },
-                },
+      -- lua_ls (explicit config)
+      vim.lsp.config("lua_ls", {
+        cmd = { "lua-language-server" },
+        settings = {
+          Lua = {
+            runtime = { version = "LuaJIT" },
+            diagnostics = { globals = { "vim" } },
+            workspace = {
+              library = { vim.env.VIMRUNTIME },
+              checkThirdParty = false,
             },
-            })
-
-        vim.lsp.enable("lua_ls")
-        end,
-    },
-
-
-    -- Completion Engine
-    {
-        "hrsh7th/nvim-cmp",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "L3MON4D3/LuaSnip",
-        },
-        config = function()
-            local cmp = require('cmp')
-            local capabilities = require('cmp_nvim_lsp').default_capabilities()
-            
-            -- Apply capabilities to all LSPs 
-            vim.lsp.config('*', { capabilities = capabilities })
-
-            cmp.setup({
-                snippet = {
-                    expand = function(args) require('luasnip').lsp_expand(args.body) end,
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ['<Tab>'] = cmp.mapping.select_next_item(),
-                    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-                    ['<CR>'] = cmp.mapping.confirm({ 
-                        behavior = cmp.ConfirmBehavior.Replace,
-                        select = false 
-                    }),
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                }),
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'buffer' },
-                })
-            })
-        end,
-    },
-    {
-      "folke/snacks.nvim",
-      priority = 1000,
-      lazy = false,
-      opts = {
-        dashboard = {
-          enabled = true,
-          sections = {
-            { section = "header" },
-            { section = "keys", gap = 1, padding = 1 },
-            { section = "startup" },
+            telemetry = { enable = false },
           },
-          preset = {
-            header = [[
+        },
+      })
+
+      vim.lsp.enable("lua_ls")
+    end,
+  },
+
+  -- Completion Engine
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "L3MON4D3/LuaSnip",
+    },
+    config = function()
+      local cmp = require('cmp')
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+      
+      -- Apply capabilities to all LSPs 
+      vim.lsp.config('*', { capabilities = capabilities })
+
+      cmp.setup({
+        snippet = {
+          expand = function(args) require('luasnip').lsp_expand(args.body) end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ['<Tab>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<CR>'] = cmp.mapping.confirm({ 
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = false 
+          }),
+          ['<C-Space>'] = cmp.mapping.complete(),
+        }),
+        sources = cmp.config.sources({
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+        })
+      })
+    end,
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+      dashboard = {
+        enabled = true,
+        sections = {
+          { section = "header" },
+          { section = "keys", gap = 1, padding = 1 },
+          { section = "startup" },
+        },
+        preset = {
+          header = [[
                         ██
                       ░░
  ███████   █████   ██████  ██    ██ ██ ██████████
@@ -234,34 +233,41 @@ require("lazy").setup({
  ░██  ░██░██░░░░ ░██   ░██ ░░████  ░██ ░██ ░██ ░██
  ███  ░██░░██████░░██████   ░░██   ░██ ███ ░██ ░██
 ░░░   ░░  ░░░░░░  ░░░░░░     ░░    ░░ ░░░  ░░  ░░]],
-            keys = {
-              { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-              { icon = " ", key = "c", desc = "Create New File", action = ":ene | startinsert" },
-              { icon = " ", key = "t", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-              { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('recent')" },
-              { icon = " ", key = "s", desc = "Load Session", action = function() require("resession").load() end },
-              { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-              { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-            },
+          keys = {
+            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
+            { icon = " ", key = "c", desc = "Create New File", action = ":ene | startinsert" },
+            { icon = " ", key = "t", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
+            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('recent')" },
+            { icon = " ", key = "s", desc = "Load Session", action = function() require("resession").load() end },
+            { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
         },
-        picker = { 
-          enabled = true,
-          sources = {
-            files = { 
-              hidden = true, 
-              ignored = true 
-            }, 
-            explorer = {
-              hidden = true,
-              ignored = true,
-            }
+      },
+      picker = { 
+        enabled = true,
+        sources = {
+          files = { 
+            replace_netrw = true, -- Replace netrw with the snacks explorer
+            trash = true,
+            hidden = true,
+            ignored = true,
+          }, 
+          explorer = {
+            replace_netrw = true, -- Replace netrw with the snacks explorer
+            trash = true,
+            hidden = true,
+            ignored = true,
           }
-        },
-        explorer = { enabled = true },
+        }
+      },
+      explorer = { 
+        enabled = true,
+        replace_netrw = true, -- Replace netrw with the snacks explorer
+        trash = true,
+        hidden = true,
+        ignored = true,
       },
     },
+  },
 })
-
-
-
