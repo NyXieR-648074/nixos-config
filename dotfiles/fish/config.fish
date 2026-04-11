@@ -40,7 +40,11 @@ if status is-interactive
     alias nixos-update-flake="nix flake update --flake  $HOME/nixos-config"
 
     function nixos-rebuild-flake
-        sudo nixos-rebuild switch --flake "$HOME/nixos-config#$argv"
+      sudo nixos-rebuild switch --flake "$HOME/nixos-config#$argv"
+    end
+
+        function nixos-rebuild-flake-test
+        sudo nixos-rebuild test --flake "$HOME/nixos-config#$argv"
     end
 
     function git-acp

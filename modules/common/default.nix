@@ -10,4 +10,8 @@
     ./nix.nix
     ./users.nix
   ];
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50; 
+  };
 }
