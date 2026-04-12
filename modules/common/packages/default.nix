@@ -26,9 +26,6 @@
     kanagawa-gtk-theme
     kanagawa-icon-theme
     bibata-cursors
-    gamescope
-    mangohud
-    heroic
     unimatrix
     cbonsai
     cava
@@ -41,7 +38,5 @@
     defaultEditor = true;
   };
   programs.dconf.enable = true;
-  programs.steam = {
-    enable = true;
-  };
+
 }
