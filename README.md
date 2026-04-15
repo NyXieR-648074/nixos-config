@@ -1,1 +1,1 @@
-# nix-mangowc-dotfiles
+# Personal NixOS config and dotfiles
