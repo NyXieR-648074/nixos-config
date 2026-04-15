@@ -36,5 +36,6 @@
     ".config/sway/config".source = ../dotfiles/sway/config;
     ".config/sway/start.sh".source = ../dotfiles/sway/start.sh;
     ".config/sway/reload.sh".source = ../dotfiles/sway/reload.sh;
+    ".config/sway/colors.conf".source = ../dotfiles/sway/colors.conf;
   };
 }
