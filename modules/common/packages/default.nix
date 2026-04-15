@@ -20,6 +20,9 @@
     figlet
     lua-language-server
     toilet
+    pavucontrol
+    nmgui
+    gnome-calendar
     git
     nixd
     fd
@@ -46,6 +49,8 @@
   ];
   programs.xwayland.enable=true;
   programs.fish.enable = true;
+  programs.sway.enable=true;
+    programs.sway.package = pkgs.swayfx;
   programs.neovim = {
     enable  = true;
     defaultEditor = true;

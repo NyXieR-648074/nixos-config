@@ -1,0 +1,150 @@
+@define-color black #1f1f28;
+@define-color black_alhpa rgba(31,31,40,0.999);
+@define-color black_dark #090618;
+@define-color black_bright #2d4f67;
+@define-color black_brightest #727169;
+@define-color white #dcd7ba;
+@define-color white_bright #c8c093;
+@define-color red #c34043;
+@define-color red_bright #e82424;
+@define-color green #76946a;
+@define-color green_bright #98bb6c;
+@define-color yellow #c0a36e;
+@define-color yellow_bright #e6c384;
+@define-color blue #7e9cd8;
+@define-color blue_bright #7fb4ca;
+@define-color magenta #957fb8;
+@define-color magenta_bright #938aa9;
+@define-color cyan #6a9589;
+@define-color cyan #7aa89f;
+* {
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: Inter, Jetbrains Mono Nerd Font Propo;
+    font-size: 14px;
+    font-weight: 500;
+    transition: none 0s linear;
+    font-feature-settings: "tnum";
+}
+
+window#waybar {
+    background-color: transparent;
+    color: @white;
+    border-bottom: 0px;
+  
+
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/*
+window#waybar.empty {
+    background-color: transparent;
+}
+window#waybar.solo {
+    background-color: #FFFFFF;
+}
+*/
+
+window#waybar.termite {
+}
+
+window#waybar.chromium {
+}
+
+button {
+
+}
+
+/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+button:hover {
+
+}
+
+
+
+#workspaces {
+    margin: 0px;
+    padding: 0px 2px; 
+    background-color: @black; 
+    border-radius: 14px;
+}
+
+#workspaces button {
+    padding: 0px;
+    margin: 4px 2px;
+    border-radius: 10px;
+    background-color: @black; 
+    color: @white;
+    min-width: 32px;
+    transition: all 0.2s ease-in-out;
+}
+
+#workspaces button.focused {
+
+   background-color: @blue;
+   color: @black;
+  
+}
+
+#workspaces button:hover {
+    background-color: @black_brightest;
+    color: @black;
+}
+
+
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd,
+#language, 
+#custom-notification,
+#custom-power,
+#window{
+    padding: 0 10px;
+    border-radius: 14px;
+    margin-right: 4px;
+    margin-left: 4px;
+    background-color: @black; 
+}
+#mode {
+ background-color: @blue;
+ color: @black;
+}
+
+tooltip label {
+    color: @white;
+}
+tooltip {
+    background-color: @black_brightest;  /* bg1 */
+    color: @white;
+    border-radius: 0px;
+        border-radius: 10px;
+}
+#language {
+    min-width: 25px;
+}
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
