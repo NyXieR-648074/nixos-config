@@ -46,6 +46,7 @@
     kanagawa-gtk-theme
     kanagawa-icon-theme
     bibata-cursors
+    jdk21
     unimatrix
     cbonsai
     cava
