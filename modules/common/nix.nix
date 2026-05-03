@@ -1,6 +1,7 @@
-{ username, inputs, pkgs, ... }:
+{ username, inputs, pkgs-unstable, pkgs, ... }:
 
 {
+
   nix = {
     settings = {
       experimental-features = [
@@ -24,9 +25,22 @@
         nix-eval-jobs
         nix-fast-build
         colmena;
-    }) ];
+      }) 
+       inputs.polymc.overlay
+    ];
+
     config = {
       allowUnfree = true;
+      packageOverrides = pkgs: {
+        ollama-vulkan = pkgs-unstable.ollama-vulkan;
+        ollama-rocm   = pkgs-unstable.ollama-rocm;
+        ollama        = pkgs-unstable.ollama;
+        lmstudio      = pkgs-unstable.lmstudio;
+        open-webui      = pkgs-unstable.open-webui;
+        
+        
+      };
+
     };
   };
 

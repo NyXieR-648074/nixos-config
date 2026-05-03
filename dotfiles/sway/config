@@ -21,7 +21,7 @@ default_floating_border pixel 4
 for_window [floating] border pixel 4
 
 # Target                border      bg            text       indicator    child_border
-client.focused          $accent     $accent_alt   $fg        $highlight   $accent
+client.focused          $accent     $accent_alt   $bg        $highlight   $accent
 client.focused_inactive $bg_alt     $border       $fg_muted  $bg_alt      $bg_alt
 client.unfocused        $bg         $bg           $fg_dim    $bg          $bg
 client.urgent           $urgent     $urgent       $fg        $urgent_alt  $urgent

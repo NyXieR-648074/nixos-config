@@ -10,7 +10,11 @@
     qbittorrent
     gimp2
     foot
+    nginx
+    polymc
     
+    polkit_gnome
+    quickshell
     librewolf
     tree
     waybar
@@ -18,14 +22,24 @@
     vscodium
     btop
     swww
+    mkcert
+    chromium
+    firefox
     figlet
+    tailscale
     lua-language-server
     toilet
     pavucontrol
     nmgui
     gnome-calendar
     git
+    telegram-desktop
+    lmstudio
+    sillytavern
     nixd
+    corectrl
+    
+    sillytavern
     fd
     ripgrep
     kanagawa-gtk-theme
@@ -34,6 +48,7 @@
     unimatrix
     cbonsai
     cava
+    wireshark
     lavat
     # PHP Core
     php

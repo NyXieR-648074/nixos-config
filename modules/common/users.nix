@@ -10,6 +10,7 @@
         extraGroups  = [ 
           "networkmanager"
           "wheel"
+          "wireshark"
         ];
         packages = with pkgs; [
           #pkgs
