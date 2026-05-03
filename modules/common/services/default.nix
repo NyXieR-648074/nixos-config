@@ -47,17 +47,7 @@
 
 
   };
-  # 3. Fix the specific GRO hardware warning
-  systemd.services.tailscale-gro-fix = {
-    description = "Tailscale Hardware Optimization";
-    after = [ "network-online.target" ];
-    wantedBy = [ "multi-user.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.ethtool}/bin/ethtool -K wlp11s0 rx-udp-gro-forwarding on";
-    };
-  };
- services.open-webui = {
+  services.open-webui = {
     enable = true;
     host = "0.0.0.0"; 
     port = 8080;

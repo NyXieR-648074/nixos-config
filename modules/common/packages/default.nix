@@ -20,6 +20,7 @@
     waybar
     pcmanfm
     vscodium
+    zed-editor
     btop
     swww
     mkcert
