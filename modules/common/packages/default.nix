@@ -40,6 +40,7 @@
     nixd
     corectrl
 
+    nil
     sillytavern
     fd
     ripgrep
