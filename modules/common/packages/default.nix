@@ -12,7 +12,7 @@
     foot
     nginx
     polymc
-    
+
     polkit_gnome
     quickshell
     librewolf
@@ -39,7 +39,7 @@
     sillytavern
     nixd
     corectrl
-    
+
     sillytavern
     fd
     ripgrep
@@ -59,7 +59,7 @@
     nodePackages.intelephense     # Superior PHP indexing (standard)
     # phpactor                    # Alternative (excellent for refactoring)
     vscode-langservers-extracted  # Provides HTML, CSS, and JSON LSPs
-    
+
     # Formatters & Linters
     phpPackages.php-cs-fixer
     nodePackages.prettier         # Best for HTML/CSS formatting
@@ -73,5 +73,17 @@
     defaultEditor = true;
   };
   programs.dconf.enable = true;
+    xdg.portal.config = {
+    common = {
+        default = [
+            "wlr"
+        ];
+    };
+  };
+  xdg.portal.enable = true;
+  xdg.portal.wlr.enable = true;
+  xdg.portal.extraPortals = [
+    pkgs.xdg-desktop-portal-gtk
+  ];
 
 }
